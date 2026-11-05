@@ -12,6 +12,7 @@ dependencies = [
     "jupytext",
     "numpy",
     "pandas",
+    "matplotlib",
 ]
 
 [tool.setuptools.packages.find]
