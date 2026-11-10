@@ -1,6 +1,13 @@
-from .species import Creature
+from dataclasses import dataclass
 import matplotlib.pyplot as plt
 
+from .species import Creature, Prey, Predator
+
+
+@dataclass
+class HistoryElement:
+    prey: int
+    predators: int
 
 class Population:
     _instances: set[Creature]  # wszystkie aktualnie zyjace Creature
@@ -40,7 +47,6 @@ class Population:
         plt.title("History")
         plt.ylim(bottom=0)
         plt.show()
-
 
     @property
     def n(self):
