@@ -1,15 +1,25 @@
+from src.prey_predator_sim.species import Prey, Predator
 from src.prey_predator_sim.population import Population
 
 population = Population(
-    n=30,
-    p_death=0.01,
-    p_reproduce=0.01001
+    population_data={
+        Prey: 30,
+        Predator: 30
+    },
+    species_parameters={
+        Prey: {
+            "p_death": 0.02,
+            "p_reproduce": 0.4,
+            "p_hunt": 0.327
+        },
+        Predator: {
+            "p_death": 0.02,
+            "p_reproduce": 0.4
+        }
+    }
 )
 
-print("Initial population:", population.n)
-
-for generation in range(100):
+for _ in range(20):
     population.natural_selection()
-    print(f"Generation {generation + 1}: {population.n}")
 
 population.plot_history()
