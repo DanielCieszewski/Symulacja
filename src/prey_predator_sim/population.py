@@ -94,7 +94,7 @@ class Population:
         prey_history = [element[Prey] for element in self.history]
         predator_history = [element[Predator] for element in self.history]
 
-        plt.plot(prey_history, label="Prey", color="#4A412A")
+        plt.plot(prey_history, label="Prey", color="Brown")
         plt.plot(predator_history, label="Predators", color="blue")
 
         plt.xlabel("Generation")

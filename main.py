@@ -1,3 +1,7 @@
+import random
+
+random.seed(489)
+
 from src.prey_predator_sim.species import Prey, Predator
 from src.prey_predator_sim.population import Population
 
@@ -8,18 +12,18 @@ population = Population(
     },
     species_parameters={
         Prey: {
-            "p_death": 0.02,
-            "p_reproduce": 0.4,
-            "p_hunt": 0.327
+            "p_death": 0.5,
+            "p_reproduce": 0.5,
+            "p_hunt": 0.5
         },
         Predator: {
-            "p_death": 0.02,
-            "p_reproduce": 0.4
+            "p_death": 0.5,
+            "p_reproduce": 0.5
         }
     }
 )
 
-for _ in range(20):
+for _ in range(12):
     population.natural_selection()
 
 population.plot_history()
