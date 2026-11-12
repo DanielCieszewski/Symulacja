@@ -78,12 +78,16 @@ def run_experiment(
 
     prey_final = [result[Prey] for result in results]
     predator_final = [result[Predator] for result in results]
+    total_final = [
+        prey_final[i] + predator_final[i]
+        for i in range(repetitions)
+    ]
 
     print(f"\nResults after {repetitions} simulations ({steps} steps)")
     print(f"Prey extinction: {sum(x == 0 for x in prey_final) / repetitions * 100:.2f}%")
     print(f"Predator extinction: {sum(x == 0 for x in predator_final) / repetitions * 100:.2f}%")
-    print(f"Final population mean: {statistics.mean(prey_final + predator_final):.2f}")
-    print(f"Final population standard deviation: {statistics.stdev(prey_final + predator_final):.2f}")
+    print(f"Final population mean: {statistics.mean(total_final):.2f}")
+    print(f"Final population standard deviation: {statistics.stdev(total_final):.2f}")
 
     return results
 
@@ -93,12 +97,11 @@ results = run_experiment(
     repetitions=10,
     n_prey=30,
     n_predator=30,
-    prey_p_death=0.9,
-    prey_p_reproduce=0.85,
+    prey_p_death=0.01,
+    prey_p_reproduce=0.4,
     prey_p_hunt=0.5,
-    predator_p_death=0.9,
-    predator_p_reproduce=0.85,
-    steps=25,
+    predator_p_death=0.99,
+    predator_p_reproduce=0.99,
+    steps=15,
     seed_start=4771,
-    plot=True,
 )

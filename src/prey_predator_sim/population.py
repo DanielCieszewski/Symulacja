@@ -11,12 +11,12 @@ class Population:
 
     def __init__(self, population_data: dict, species_parameters: dict):
 
-        self._instances = set()
+        self._instances = []
 
         for species, n in population_data.items():
             for _ in range(n):
                 creature = species(**species_parameters[species])
-                self._instances.add(creature)
+                self._instances.append(creature)
 
         self.history = [self.n]
 
@@ -57,14 +57,14 @@ class Population:
     def natural_selection(self):
 
         # 1. Reproduction
-        offspring = set()
+        offspring = []
 
         for creature in self._instances:
             if creature.alive:
                 new_creature = creature.reproduce()
 
                 if new_creature is not None:
-                    offspring.add(new_creature)
+                    offspring.append(new_creature)
 
         # 2. Hunting
         self.hunting()
@@ -75,12 +75,12 @@ class Population:
                 creature.kill()
 
         # 4. History
-        survivors = {
+        survivors = [
             creature for creature in self._instances
             if creature.alive
-        }
+        ]
 
-        next_population = survivors | offspring
+        next_population = survivors + offspring
 
         self.history.append(
             self.count_population(next_population)
