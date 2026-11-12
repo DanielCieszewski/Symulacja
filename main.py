@@ -43,13 +43,57 @@ def run_simulation(
 
 
 
-history = run_simulation(
-    seed=55,
+
+
+def run_experiment(
+        repetitions: int,
+        n_prey: int,
+        n_predator: int,
+        prey_p_death: float,
+        prey_p_reproduce: float,
+        prey_p_hunt: float,
+        predator_p_death: float,
+        predator_p_reproduce: float,
+        steps: int = 150,
+        seed_start: int = 0
+):
+    results = []
+
+    for i in range(repetitions):
+        history = run_simulation(
+            seed=seed_start + i,
+            n_prey=n_prey,
+            n_predator=n_predator,
+            prey_p_death=prey_p_death,
+            prey_p_reproduce=prey_p_reproduce,
+            prey_p_hunt=prey_p_hunt,
+            predator_p_death=predator_p_death,
+            predator_p_reproduce=predator_p_reproduce,
+            steps=steps
+        )
+
+        results.append(history[-1])
+
+    prey_final = [result[Prey] for result in results]
+    predator_final = [result[Predator] for result in results]
+
+    print(f"\nResults after {repetitions} simulations ({steps} steps)")
+    print(f"Prey extinction: {sum(x == 0 for x in prey_final) / repetitions * 100:.2f}%")
+    print(f"Predator extinction: {sum(x == 0 for x in predator_final) / repetitions * 100:.2f}%")
+    print(f"Final population mean: {statistics.mean(prey_final + predator_final):.2f}")
+    print(f"Final population standard deviation: {statistics.stdev(prey_final + predator_final):.2f}")
+
+    return results
+
+results = run_experiment(
+    repetitions=10,
     n_prey=30,
     n_predator=30,
-    prey_p_death=0.9,
+    prey_p_death=0.8,
     prey_p_reproduce=0.9,
     prey_p_hunt=0.5,
     predator_p_death=0.9,
-    predator_p_reproduce=0.9
+    predator_p_reproduce=0.9,
+    steps=25,
+    seed_start=4771
 )
