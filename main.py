@@ -12,7 +12,8 @@ def run_simulation(
         prey_p_hunt: float,
         predator_p_death: float,
         predator_p_reproduce: float,
-        steps: int = 150
+        steps: int = 150,
+        plot: bool = False
 ):
     random.seed(seed)
 
@@ -37,11 +38,10 @@ def run_simulation(
     for _ in range(steps):
         population.natural_selection()
 
-    population.plot_history()
+    if plot:
+        population.plot_history()
 
     return population.history
-
-
 
 
 
@@ -55,7 +55,8 @@ def run_experiment(
         predator_p_death: float,
         predator_p_reproduce: float,
         steps: int = 150,
-        seed_start: int = 0
+        seed_start: int = 0,
+        plot: bool = False
 ):
     results = []
 
@@ -69,7 +70,8 @@ def run_experiment(
             prey_p_hunt=prey_p_hunt,
             predator_p_death=predator_p_death,
             predator_p_reproduce=predator_p_reproduce,
-            steps=steps
+            steps=steps,
+            plot=plot
         )
 
         results.append(history[-1])
@@ -85,15 +87,18 @@ def run_experiment(
 
     return results
 
+
+
 results = run_experiment(
     repetitions=10,
     n_prey=30,
     n_predator=30,
-    prey_p_death=0.8,
-    prey_p_reproduce=0.9,
+    prey_p_death=0.9,
+    prey_p_reproduce=0.85,
     prey_p_hunt=0.5,
     predator_p_death=0.9,
-    predator_p_reproduce=0.9,
+    predator_p_reproduce=0.85,
     steps=25,
-    seed_start=4771
+    seed_start=4771,
+    plot=True,
 )
