@@ -94,14 +94,14 @@ def run_experiment(
 
 
 results = run_experiment(
-    repetitions=10,
+    repetitions=20000,
     n_prey=30,
     n_predator=30,
-    prey_p_death=0.01,
-    prey_p_reproduce=0.4,
+    prey_p_death=0.5,
+    prey_p_reproduce=0.6,
     prey_p_hunt=0.5,
-    predator_p_death=0.99,
-    predator_p_reproduce=0.99,
-    steps=15,
-    seed_start=4771,
+    predator_p_death=0.5,
+    predator_p_reproduce=0.6,
+    steps=50,
+    seed_start=2026,
 )
